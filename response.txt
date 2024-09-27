@@ -1,1 +1,1 @@
-I'm sorry, but as a robot, I don't have the ability to make phone calls. ^start(animations/Stand/Gestures/ShakeHead_1) But I can send a message or a reminder to Bill if that's what you want.
+Of course! ^start(animations/Stand/Gestures/Acknowledge_1) I am a NAO robot, a leader, and a mentor at a children's gym. My focus lies in brain, body, and character development, providing guidance through activities and lessons.
