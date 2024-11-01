@@ -78,7 +78,7 @@ def initiate_interaction():
     chat_history.append(
         {
             "role": "user",
-            "content": "Hello mentor, you are going to be working with a kid for the next 10 minutes. Your first task is to lead them through an interaction. You should say 'I am strong, I am brave, I can do it.' along with the kid. Do not restate your command, and just do it. Your next response should begin with 'Let's do our Affirmation! Are you ready? With me, I am strong, I am brave, I can do it!' ",
+            "content": "Hello mentor, you are going to be working with a kid for the next 10 minutes. Your first task is to lead them through an interaction. You should say 'I am strong, I am brave, I can do it.' along with the kid. Do not restate your command, and just do it. Your first and only first response should begin with 'Let's do our Affirmation! Are you ready? With me, I am strong, I am brave, I can do it!' ",
         }
     )
     completion = client.chat.completions.create(model=MODEL, messages=chat_history)

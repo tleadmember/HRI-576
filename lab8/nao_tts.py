@@ -5,7 +5,7 @@ from naoqi import ALProxy
 
 # tts = ALProxy
 
-ip = "10.60.253.210"  # ADJUST MANUALLY !!!
+ip = "10.60.237.164"  # ADJUST MANUALLY !!!
 
 # text to speech proxy
 tts = ALProxy("ALTextToSpeech", ip, 9559)
@@ -148,18 +148,24 @@ while True:
                 old_index = text.find(trigger_text)
                 new_text = ""
                 if old_index != -1:
-                    index = old_index + len(trigger_text)
-                    new_text = text[:index] + " " + text[index:]
+                    index1 = old_index
+                    index2 = old_index + len(trigger_text)
+                    new_text = text[:index1] + " " + text[index2:]
+                    new_text1 = text[:index1]
+                    new_text2 = text[index2:]
+                    print(text)
                     print(new_text)
+                    tts.say(new_text1)
                     flex_motion()
-
-                tts.say(new_text)
+                    tts.say(new_text2)
+                else:
+                    tts.say(text)
 
                 if old_index != -1:
                     zero_motion()
 
                 print(new_text)
-                text_old = new_text
+                text_old = text
                 with open("listen.txt", "w") as f:
                     f.write("yes")
 
