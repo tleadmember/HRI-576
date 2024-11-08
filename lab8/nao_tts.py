@@ -5,12 +5,15 @@ from naoqi import ALProxy
 
 # tts = ALProxy
 
-ip = "10.60.59.193"  # ADJUST MANUALLY !!!
+ip = "10.60.253.210"  # ADJUST MANUALLY !!!
 
 # text to speech proxy
 tts = ALProxy("ALTextToSpeech", ip, 9559)
 tts.setParameter("speed", 92)
 
+audo = ALProxy("ALAudioDevice", ip, 9559)
+audo.setOutputVolume(35)
+# 10.60.253.210
 # animated speech proxy
 animated_speech = ALProxy("ALAnimatedSpeech", ip, 9559)
 
@@ -20,9 +23,9 @@ posture_proxy = ALProxy("ALRobotPosture", ip, 9559)
 current_posture = posture_proxy.getPosture()
 
 # gaze-related proxies
-awareness_proxy = ALProxy("ALBasicAwareness", ip, 9559)
-awareness_proxy.setEngagementMode("FullyEngaged")
-awareness_proxy.setEnabled(True)
+# awareness_proxy = ALProxy("ALBasicAwareness", ip, 9559)
+# awareness_proxy.setEngagementMode("FullyEngaged")
+# awareness_proxy.setEnabled(True)
 # awareness_proxy.setStimulusDetectionEnabled("Touch", True)
 
 # gaze-related proxies
@@ -33,6 +36,7 @@ text_old = ""
 
 # motion proxy
 motion_proxy = ALProxy("ALMotion", ip, 9559)
+motion_proxy.wbEnable(True)
 
 
 # Function to convert degrees to radians
@@ -65,11 +69,13 @@ def thumbs_up_motion():
         deg_to_rad(angle) for angle in right_arm_angles_degrees_thumbs_up
     ]
     left_arm_angles_degrees_thumbs_up = [35.0, -6.7, -94.0, -38.3, 7.2, 0.02]
+    # left_arm_angles_degrees_thumbs_up = [37.7, -8.4, -84.2, -41.8, 4.4, 0.02]
+
     left_arm_angles_radians_thumbs_up = [
         deg_to_rad(angle) for angle in left_arm_angles_degrees_thumbs_up
     ]
 
-    fractionMaxSpeed = 0.3
+    fractionMaxSpeed = 0.35
     joints = left_arm_joints + right_arm_joints
     angles_radians_thumbs_up = (
         left_arm_angles_radians_thumbs_up + right_arm_angles_radians_thumbs_up
@@ -90,13 +96,13 @@ def hips_motion():
         deg_to_rad(angle) for angle in left_arm_angles_degrees_hips
     ]
 
-    fractionMaxSpeed = 0.3
+    fractionMaxSpeed = 0.2
     joints = left_arm_joints + right_arm_joints
     angles_radians_hips = left_arm_angles_radians_hips + right_arm_angles_radians_hips
 
     motion_proxy.setAngles(joints, angles_radians_hips, fractionMaxSpeed)
 
-    time.sleep(1.0)
+    time.sleep(1.3)
 
 
 # Flex motion
@@ -115,7 +121,7 @@ def flex_motion():
         deg_to_rad(angle) for angle in left_arm_angles_degrees_flex
     ]
 
-    fractionMaxSpeed = 0.25
+    fractionMaxSpeed = 0.2
     joints = left_arm_joints + right_arm_joints
     angles_radians_flex = left_arm_angles_radians_flex + right_arm_angles_radians_flex
 
@@ -139,7 +145,7 @@ def zero_motion():
         deg_to_rad(angle) for angle in left_arm_angles_degrees_zero
     ]
 
-    fractionMaxSpeed = 0.3
+    fractionMaxSpeed = 0.2
     joints = left_arm_joints + right_arm_joints
     angles_radians_zero = left_arm_angles_radians_zero + right_arm_angles_radians_zero
 
@@ -150,42 +156,87 @@ def zero_motion():
     time.sleep(1.0)
 
 
+def sleep_action(dur):
+    time.sleep(dur)
+
+
 script2 = [
+    "Hello Friend! My name is Mentor, and I'm your coach today.",
+    "<sleep,0.1>",
+    "For today's exercise, we're going to do an affirmation together.",
+    "<sleep,0.2>",
+    "Don't worry! I'll explain how it works before we begin.",
+    "<sleep,0.1>",
+    "Here's what we do",
+    "<sleep,0.1>",
+    "First, we flex our arms over our heads like this",
+    "<flex>",
+    "and we say, I am STRONG!",
+    "<sleep,0.2>",
+    "Then, we put our hands on our hips like this",
+    "<hips>",
+    "and we say, I am BRAVE!",
+    "<sleep,0.2>",
+    "Then, we give two thumbs up like this",
+    "<thumbs_up>",
+    "and we say, I can DO THIS!",
+    "<sleep,0.2>",
+    "<zero>",
+    "So, the whole affirmation goes",
+    "<flex>",
+    "I am STRONG!",
+    "<sleep,0.2>",
+    "<hips>",
+    "I am BRAVE!",
+    "<sleep,0.2>",
+    "<thumbs_up>",
+    "I can DO THIS!",
+    "<sleep,0.2>",
+    "<zero>",
+    "OK, now let's do it together. Are you ready?",
+    "<sleep,1.0>",
+    "Here we go...",
+    "<flex>",
+    "I am STRONG!",
+    "<sleep,0.2>",
+    "<hips>",
+    "I am BRAVE!",
+    "<sleep,0.2>",
+    "<thumbs_up>",
+    "I can DO THIS!",
+    "<sleep,0.2>",
+    "<zero>",
+    "Great job! Thanks for doing the affirmation with me.",
+    "<sleep,0.1>",
+    "That's all for today!",
+]
+
+
+script3 = [
     "Hello Friend! My name is Mentor, and I'm your coach today.",
     "For our first exercise, we are going to do an affirmation together.",
     "Don't worry, I'll explain how it works before we begin.",
     "Here's what we do",
-    "First, we flex our arms over our head like this",
-    "<flex>",
+    "First, we flex our arms over our head",
     "and we say, I am STRONG!",
-    "Then, we put our hands on our hips like this",
-    "<hips>",
+    "Then, we put our hands on our hips",
     "and say, I am BRAVE!",
-    "Then, we give two thumbs up like this",
-    "<thumbs_up>",
+    "Then, we give two thumbs up",
     "and say, I can DO THIS!",
-    "<zero>",
-    "So, the entire affirmation goes",
-    "<flex>",
+    "So, the whole affirmation goes",
     "I am STRONG!",
-    "<hips>",
     "I am brave!",
-    "<thumbs_up>",
     "I CAN DO THIS!",
-    "<zero>",
-    "OK, are you ready to do it with me?",
+    "OK, are you ready to show me how you do it?",
     "Here we go...",
-    "<flex>",
     "I am STRONG!",
-    "<hips>",
     "I am BRAVE!",
-    "<thumbs_up>",
     "I can DO THIS!",
-    "<zero>",
-    "Great job! Thanks for doing the affirmation with me. That's all for today's exercises.",
+    "Great job! Thanks for doing the affirmation with me. That's all for today!",
 ]
 
 
+# script2 = ["<flex>", "<hips>", "<thumbs_up>", "<zero>"]
 def perform_script_2():
     for action in script2:
         if action == "<flex>":
@@ -200,9 +251,13 @@ def perform_script_2():
         elif action == "<zero>":
             zero_motion()
             # time.sleep(0.1)
+        elif "<sleep" in action:
+            splits = action.split(",")
+            dur = float(splits[1][:-1])
+            sleep_action(dur)
         else:
             tts.say(action)
-        time.sleep(0.5)
+        time.sleep(0.4)
     zero_motion()
 
 
@@ -230,7 +285,8 @@ with open("response.txt", "w") as f:
 # for joint in joints:
 #     motion_proxy.setStiffnesses(joint, 0.6)
 
-motion_proxy.stiffnessInterpolation("Body", 1.0, 0.5)
+# motion_proxy.stiffnessInterpolation("Body", 1.0, 0.5)
+
 
 perform_script_2()
 # while True:
