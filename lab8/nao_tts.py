@@ -5,14 +5,14 @@ from naoqi import ALProxy
 
 # tts = ALProxy
 
-ip = "10.60.63.63"  # ADJUST MANUALLY !!!
+ip = "10.60.253.210"  # ADJUST MANUALLY !!!
 
 # text to speech proxy
 tts = ALProxy("ALTextToSpeech", ip, 9559)
 tts.setParameter("speed", 92)
 
 audo = ALProxy("ALAudioDevice", ip, 9559)
-audo.setOutputVolume(35)
+audo.setOutputVolume(70)
 # 10.60.253.210
 # animated speech proxy
 animated_speech = ALProxy("ALAnimatedSpeech", ip, 9559)
@@ -101,17 +101,11 @@ def hips_motion():
     angles_radians_hips = left_arm_angles_radians_hips + right_arm_angles_radians_hips
 
     motion_proxy.setAngles(joints, angles_radians_hips, fractionMaxSpeed)
-
     time.sleep(1.3)
 
 
 # Flex motion
 def flex_motion():
-    # motion_proxy.setStiffnesses("Shoulder", 1.0)
-    # motion_proxy.setStiffnesses("Elbow", 1.0)
-    # motion_proxy.setStiffnesses("Wrist", 1.0)
-    # motion_proxy.setStiffnesses("Hand", 1.0)
-
     right_arm_angles_degrees_flex = [-4.6, -68.6, 86.7, 88.5, 75.4, 0.0]
     right_arm_angles_radians_flex = [
         deg_to_rad(angle) for angle in right_arm_angles_degrees_flex
@@ -126,12 +120,7 @@ def flex_motion():
     angles_radians_flex = left_arm_angles_radians_flex + right_arm_angles_radians_flex
 
     motion_proxy.setAngles(joints, angles_radians_flex, fractionMaxSpeed)
-
     time.sleep(1.0)
-    # motion_proxy.setStiffnesses("Shoulder", 0.0)
-    # motion_proxy.setStiffnesses("Elbow", 0.0)
-    # motion_proxy.setStiffnesses("Wrist", 0.0)
-    # motion_proxy.setStiffnesses("Hand", 0.0)
 
 
 def zero_motion():
@@ -150,9 +139,6 @@ def zero_motion():
     angles_radians_zero = left_arm_angles_radians_zero + right_arm_angles_radians_zero
 
     motion_proxy.setAngles(joints, angles_radians_zero, fractionMaxSpeed)
-
-    # motion_proxy.setStiffnesses("RArm", 0.0)
-    # motion_proxy.setStiffnesses("LArm", 0.0)
     time.sleep(1.0)
 
 
@@ -251,59 +237,6 @@ script3 = [
 ]
 
 
-script3 = [
-    "Hello Friend! My name is Mentor, and I'm your coach today.",
-    "<sleep,0.1>",
-    "For today's exercise, we're going to do an affirmation together.",
-    "<sleep,0.2>",
-    "Don't worry! I'll explain how it works before we begin.",
-    "<sleep,0.1>",
-    "Here's what we do",
-    "<sleep,0.1>",
-    "First, we flex our arms over our heads like this",
-    "<flex>",
-    "and we say, I am STRONG!",
-    "<sleep,0.2>",
-    "Then, we put our hands on our hips like this",
-    "<hips>",
-    "and we say, I am BRAVE!",
-    "<sleep,0.2>",
-    "Then, we give two thumbs up like this",
-    "<thumbs_up>",
-    "and we say, I can DO THIS!",
-    "<sleep,0.2>",
-    "<zero>",
-    "So, the whole affirmation goes",
-    "<flex>",
-    "I am STRONG!",
-    "<sleep,0.2>",
-    "<hips>",
-    "I am BRAVE!",
-    "<sleep,0.2>",
-    "<thumbs_up>",
-    "I can DO THIS!",
-    "<sleep,0.2>",
-    "<zero>",
-    "OK, now let's do it together. Are you ready?",
-    "<sleep,1.0>",
-    "Here we go...",
-    "<flex>",
-    "I am STRONG!",
-    "<sleep,0.2>",
-    "<hips>",
-    "I am BRAVE!",
-    "<sleep,0.2>",
-    "<thumbs_up>",
-    "I can DO THIS!",
-    "<sleep,0.2>",
-    "<zero>",
-    "Great job! Thanks for doing the affirmation with me.",
-    "<sleep,0.1>",
-    "That's all for today!",
-]
-
-
-# script2 = ["<flex>", "<hips>", "<thumbs_up>", "<zero>"]
 def perform_script_2():
     for action in script2:
         if action == "<flex>":
